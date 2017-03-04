@@ -3,6 +3,12 @@
 <head>
 <title>CodeAcross Toronto</title>
 
+<!-- jquery -->
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
   <!-- Bootstrap Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -12,17 +18,77 @@
 <!-- Bootstrap Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- jquery -->
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
 
-<!-- geojson-vt -->
-<script src="./geojsonvt.js"></script>
+<!-- mapbox-gl -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
 
+<style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
 
 </head>
 <body>
+  <div id='map'></div>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZG9sZWphcnoiLCJhIjoiY2l6dm1odjlsMDE0aDJwcXFkb2pwZzA1dCJ9.1dmD55yCkS9gTt78N31RGg';
+  var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v9'
+  });
+
+
+  map.on('load', function () {
+
+
+    map.addSource('traffic', {
+      type: 'geojson',
+      data: 'bluetooth_routes_wgs84.json'
+    });
+
+      // map.addLayer({
+      //     "id": "points",
+      //     "type": "symbol",
+      //     "source": {
+      //         "type": "geojson",
+      //         "data": {
+      //             "type": "FeatureCollection",
+      //             "features": [{
+      //                 "type": "Feature",
+      //                 "geometry": {
+      //                     "type": "Point",
+      //                     "coordinates": [-77.03238901390978, 38.913188059745586]
+      //                 },
+      //                 "properties": {
+      //                     "title": "Mapbox DC",
+      //                     "icon": "monument"
+      //                 }
+      //             }, {
+      //                 "type": "Feature",
+      //                 "geometry": {
+      //                     "type": "Point",
+      //                     "coordinates": [-122.414, 37.776]
+      //                 },
+      //                 "properties": {
+      //                     "title": "Mapbox SF",
+      //                     "icon": "harbor"
+      //                 }
+      //             }]
+      //         }
+      //     },
+      //     "layout": {
+      //         "icon-image": "{icon}-15",
+      //         "text-field": "{title}",
+      //         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+      //         "text-offset": [0, 0.6],
+      //         "text-anchor": "top"
+      //     }
+      // });
+  });
+
+  </script>
+
+
 </body>
 </html>
