@@ -25,8 +25,32 @@
 
 <style>
         body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #map { position:absolute; top:0; bottom:0; width:75%; }
 </style>
+
+<!--table-->
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 15%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#DataTable{
+  margin-left: 1100px;
+}
+</style>
+
 
 </head>
 <body>
@@ -89,6 +113,22 @@
 
   </script>
 
-
+<div id='DataTable'>
+	 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Gardner</button>
+	  <div id="demo" class="collapse">
+	    <table>
+	  <tr>
+	    <th>Segment Name</th>
+	    <th>Current Travel time</th>
+	    <th>Historical Travel time</th>
+	  </tr>
+	  <tr>
+	  <!--This information will be coming from th API-->
+	    <td>Gardiner</td> 
+	    <td>15mins</td>
+	    <td>15mins</td>
+	  </tr>
+	</table>
+</div>
 </body>
 </html>
