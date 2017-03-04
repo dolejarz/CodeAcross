@@ -28,6 +28,7 @@
 <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:1000px; }
+
 </style>
 
 <!--table-->
@@ -52,6 +53,13 @@ tr:nth-child(even) {
   margin-top: 50px;
   margin-left: 1100px;
 }
+
+#modalButton {
+  position:absolute;
+  bottom:0;
+}
+
+
 </style>
 <!--Modal -->
   <meta charset="utf-8">
@@ -99,7 +107,7 @@ tr:nth-child(even) {
 	</table>
 </div>
 
-  <br> 
+  <br>
 
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">DVP</button>
 	  <div id="demo2" class="collapse">
@@ -111,14 +119,14 @@ tr:nth-child(even) {
 	  </tr>
 	  <tr>
 	  <!--This information will be coming from th API-->
-	    <td>DVP</td> 
+	    <td>DVP</td>
 	    <td>13mins</td>
 	    <td>14mins</td>
 	  </tr>
 	</table>
 </div>
 
-  <br> 
+  <br>
 
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3">Lakeshore</button>
 	  <div id="demo3" class="collapse">
@@ -130,23 +138,25 @@ tr:nth-child(even) {
 	  </tr>
 	  <tr>
 	  <!--This information will be coming from th API-->
-	    <td>Lakeshore</td> 
+	    <td>Lakeshore</td>
 	    <td>10mins</td>
 	    <td>19mins</td>
 	  </tr>
+
+
 	</table>
 </div>
 
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="modalButton">Plot Graph</button>
 
 <!-- Modal -->
 <div class="container">
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Plot Graph</button>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -154,16 +164,16 @@ tr:nth-child(even) {
           <h4 class="modal-title">Graph</h4>
         </div>
         <div class="modal-body">
-          <img src="Transportation mockup.001.jpg" alt="View" style="width:304px;height:228px;">
+          <img src="https://github.com/dolejarz/CodeAcross/raw/master/Transportation%20mockup.001.jpeg" alt="View" style="width:100%;">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
-  
+
 </div>
 
 </body>
