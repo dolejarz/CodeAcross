@@ -3,29 +3,31 @@
 <head>
 <title>CodeAcross Toronto</title>
 
-<!-- jquery -->
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
 
-  <!-- Bootstrap Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- jquery -->
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
 
-<!-- Bootstrap Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Bootstrap Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Bootstrap Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Bootstrap Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Bootstrap Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-<!-- mapbox-gl -->
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+	<script src="leaflet.ajax.min.js"></script>
 
 <style>
         body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:75%; }
+        #map { position:absolute; top:0; bottom:0; width:1000px; }
 </style>
 
 <!--table-->
@@ -47,6 +49,7 @@ tr:nth-child(even) {
 }
 
 #DataTable{
+  margin-top: 50px;
   margin-left: 1100px;
 }
 </style>
@@ -54,64 +57,24 @@ tr:nth-child(even) {
 
 </head>
 <body>
-  <div id='map'></div>
-  <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiZG9sZWphcnoiLCJhIjoiY2l6dm1odjlsMDE0aDJwcXFkb2pwZzA1dCJ9.1dmD55yCkS9gTt78N31RGg';
-  var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9'
-  });
+<div id='map'></div>
 
+<script>
 
-  map.on('load', function () {
+	var map = L.map('map').setView([43.6552893, -79.3920223], 12.25);
 
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZG9sZWphcnoiLCJhIjoiY2l6dm1odjlsMDE0aDJwcXFkb2pwZzA1dCJ9.1dmD55yCkS9gTt78N31RGg', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.light'
+	}).addTo(map);
 
-    map.addSource('traffic', {
-      type: 'geojson',
-      data: 'bluetooth_routes_wgs84.json'
-    });
+	var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/dolejarz/CodeAcross/master/bluetooth_routes_wgs84.json");
+	geojsonLayer.addTo(map);
 
-      // map.addLayer({
-      //     "id": "points",
-      //     "type": "symbol",
-      //     "source": {
-      //         "type": "geojson",
-      //         "data": {
-      //             "type": "FeatureCollection",
-      //             "features": [{
-      //                 "type": "Feature",
-      //                 "geometry": {
-      //                     "type": "Point",
-      //                     "coordinates": [-77.03238901390978, 38.913188059745586]
-      //                 },
-      //                 "properties": {
-      //                     "title": "Mapbox DC",
-      //                     "icon": "monument"
-      //                 }
-      //             }, {
-      //                 "type": "Feature",
-      //                 "geometry": {
-      //                     "type": "Point",
-      //                     "coordinates": [-122.414, 37.776]
-      //                 },
-      //                 "properties": {
-      //                     "title": "Mapbox SF",
-      //                     "icon": "harbor"
-      //                 }
-      //             }]
-      //         }
-      //     },
-      //     "layout": {
-      //         "icon-image": "{icon}-15",
-      //         "text-field": "{title}",
-      //         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-      //         "text-offset": [0, 0.6],
-      //         "text-anchor": "top"
-      //     }
-      // });
-  });
-
-  </script>
+</script>
 
 <div id='DataTable'>
 
@@ -125,7 +88,7 @@ tr:nth-child(even) {
 	  </tr>
 	  <tr>
 	  <!--This information will be coming from th API-->
-	    <td>Gardiner</td> 
+	    <td>Gardiner</td>
 	    <td>15mins</td>
 	    <td>15mins</td>
 	  </tr>

@@ -1,6 +1,9 @@
-{
-   "type":"GeometryCollection",
-   "geometries":[
+var data = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "GeometryCollection": [
       {
          "type":"LineString",
          "coordinates":[
@@ -31759,3 +31762,8 @@
       }
    ]
 }
+
+]
+}
+]
+};
